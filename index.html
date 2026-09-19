@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Meine Büro-Vokabeln</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 720px;
+    margin: 60px auto;
+    padding: 0 24px;
+    background: #f7f7f5;
+    color: #1a1a1a;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  #list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .word {
+    background: #fff;
+    border: 1px solid #e5e5e0;
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: box-shadow 0.15s ease;
+  }
+  .word:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .term {
+    font-weight: 700;
+    font-size: 17px;
+    color: #111;
+  }
+  .meaning {
+    color: #777;
+    font-size: 14px;
+    font-style: italic;
+  }
+  .sentences {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sentence {
+    font-size: 15px;
+    color: #2f6e3f;
+    background: #f0f7f1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 3px solid #4a9960;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #999;
+    background: #eee;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Meine Büro-Vokabeln</h1>
+<div class="subtitle">Wörter & Sätze aus meinen Deutsch-Sessions</div>
+<div id="list"></div>
+
+<script>
+  // Add new words here: { term, meaning, sentences: [ "...", "...", "..." ], tag }
+  const vocab = [
+    {
+      term: "überlegen (Verb)",
+      meaning: "to think over / consider",
+      sentences: [
+        "Ich überleg mir, ob ich den Job annehme.",
+        "Lass mich kurz überlegen...",
+        "Ich hab's mir anders überlegt."
+      ],
+      tag: "Allgemein"
+    },
+    {
+      term: "überlegen (Adjektiv)",
+      meaning: "superior",
+      sentences: [
+        "Der ist mir haushoch überlegen.",
+        "Unser Team war klar überlegen."
+      ],
+      tag: "Allgemein"
+    },
+    {
+      term: "der Stand",
+      meaning: "the status / progress",
+      sentences: [
+        "Wie ist der Stand bei dem Projekt?",
+        "Gib mir mal kurz den Stand.",
+        "Der Stand hat sich seit gestern nicht geändert."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "anstehen",
+      meaning: "to be coming up / due",
+      sentences: [
+        "Was steht diese Woche an?",
+        "Das Review steht noch an.",
+        "Nächste Woche steht ein großes Release an."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "der Aufwand",
+      meaning: "the effort / work involved",
+      sentences: [
+        "Der Aufwand ist höher als gedacht.",
+        "Wie viel Aufwand wär das ungefähr?",
+        "Der Aufwand lohnt sich nicht."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "einschätzen",
+      meaning: "to assess / estimate",
+      sentences: [
+        "Wie schätzt du den Aufwand ein?",
+        "Ich kann das noch nicht richtig einschätzen.",
+        "Schätz mal grob, wie lang das dauert."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "besprechen",
+      meaning: "to discuss",
+      sentences: [
+        "Das besprechen wir im nächsten Meeting.",
+        "Können wir das kurz besprechen?",
+        "Lass uns das morgen in Ruhe besprechen."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "dranbleiben",
+      meaning: "to stay on top of something",
+      sentences: [
+        "Bleib dran, wir brauchen das bis Freitag.",
+        "Ich bleib dran und meld mich, sobald ich was weiß.",
+        "Bleiben wir einfach dran, dann klappt's."
+      ],
+      tag: "Meeting"
+    },
+   {
+      term: "vorschlagen",
+      meaning: "to suggest / propose",
+      sentences: [
+        "Ich schlag vor, wir machen das anders.",
+        "Was schlägst du vor?",
+        "Er hat vorgeschlagen, das Meeting zu verschieben."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "sich einigen",
+      meaning: "to agree / reach a consensus",
+      sentences: [
+        "Wir haben uns auf einen Termin geeinigt.",
+        "Können wir uns darauf einigen?",
+        "Am Ende haben wir uns schnell geeinigt."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "verschieben",
+      meaning: "to postpone / move (a date, meeting)",
+      sentences: [
+        "Können wir das Meeting verschieben?",
+        "Der Release wurde auf nächste Woche verschoben.",
+        "Ich muss unser Gespräch leider verschieben."
+      ],
+      tag: "Meeting"
+    },
+    {
+      term: "nachfragen",
+      meaning: "to follow up / ask again",
+      sentences: [
+        "Ich frag nochmal nach, falls keine Antwort kommt.",
+        "Kannst du bei ihm nachfragen?",
+        "Frag einfach nach, wenn was unklar ist."
+      ],
+      tag: "Slack"
+    },
+    {
+      term: "Bescheid geben",
+      meaning: "to let someone know / give a heads-up",
+      sentences: [
+        "Gib mir Bescheid, wenn's fertig ist.",
+        "Ich geb dir Bescheid, sobald ich mehr weiß.",
+        "Sag Bescheid, falls sich was ändert."
+      ],
+      tag: "Slack"
+    },
+  ];
+
+  const container = document.getElementById("list");
+  vocab.forEach(v => {
+    const div = document.createElement("div");
+    div.className = "word";
+    const sentencesHtml = v.sentences.map(s => `<div class="sentence">${s}</div>`).join("");
+    div.innerHTML = `
+      <div class="row-top">
+        <span class="term">${v.term}</span>
+        <span class="meaning">${v.meaning}</span>
+      </div>
+      <div class="sentences">${sentencesHtml}</div>
+      <span class="tag">${v.tag}</span>
+    `;
+    container.appendChild(div);
+  });
+</script>
+
+</body>
+</html>
